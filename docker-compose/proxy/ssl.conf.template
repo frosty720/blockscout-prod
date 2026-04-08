@@ -32,6 +32,12 @@ server {
     ssl_session_timeout 10m;
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
+    location /branding/ {
+        alias /var/www/branding/;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
     location ~ ^/(api(?!-docs$)|socket|sitemap.xml|auth/auth0|auth/auth0/callback|auth/logout) {
         proxy_pass            ${BACK_PROXY_PASS};
         proxy_http_version    1.1;
